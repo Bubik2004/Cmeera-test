@@ -27,17 +27,17 @@ namespace Cmeera_test
 
             if (state.IsKeyDown(Keys.D))
             {
-                
+                playerSprite.spritePosition = new Vector2(playerSprite.spritePosition.X - 1, playerSprite.spritePosition.Y);
             }
 
             if (state.IsKeyDown(Keys.W))
             {
-                
+                playerSprite.spritePosition = new Vector2(playerSprite.spritePosition.X, playerSprite.spritePosition.Y - 1);
             }
 
             if (state.IsKeyDown(Keys.S))
             {
-                
+                playerSprite.spritePosition = new Vector2(playerSprite.spritePosition.X + 1, playerSprite.spritePosition.Y + 1);
             }
         }
 
