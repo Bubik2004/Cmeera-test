@@ -8,9 +8,13 @@ namespace Cmeera_test
     {
         private GraphicsDeviceManager _graphics;
         private SpriteBatch _spriteBatch;
-        public Camera Cam;
-        private Viewport dog;
-        private float inZoomAmount;
+        private Player Squirt;
+        private Tree tree;
+        private Texture2D tex;
+        private Vector2 pos;
+        private Vector2 size;
+        
+
 
         public Game1()
         {
@@ -18,6 +22,7 @@ namespace Cmeera_test
             Content.RootDirectory = "Content";
             IsMouseVisible = true;
         }
+       
 
         protected override void Initialize()
         {
@@ -29,7 +34,14 @@ namespace Cmeera_test
         protected override void LoadContent()
         {
             _spriteBatch = new SpriteBatch(GraphicsDevice);
+            tex = Content.Load<Texture2D>("squirtle");
+            Squirt = new Player(tex, new Vector2(200, 200), new Vector2(30, 50));
 
+            tex = Content.Load<Texture2D>("Big_tree");
+            tree = new Tree(tex, new Vector2(100, 100), new Vector2(50, 70));
+
+            
+            
             // TODO: use this.Content to load your game content here
         }
 
@@ -49,7 +61,12 @@ namespace Cmeera_test
         {
             GraphicsDevice.Clear(Color.CornflowerBlue);
 
-            // TODO: Add your drawing code here
+            BeginDraw();
+
+            Squirt.DrawSprite(_spriteBatch, Squirt.spriteTexture);
+            tree.DrawSprite(_spriteBatch, tree.spriteTexture);
+
+            EndDraw();
 
             base.Draw(gameTime);
         }
