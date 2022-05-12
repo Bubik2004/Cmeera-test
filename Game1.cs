@@ -13,6 +13,12 @@ namespace Cmeera_test
         private Texture2D tex;
         private Vector2 pos;
         private Vector2 size;
+        private InputManager inputMan;
+
+        public Camera Cam;
+        private Viewport dog;
+        private float inZoomAmount;
+
 
 
         public Game1()
@@ -48,7 +54,10 @@ namespace Cmeera_test
         {
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
                 Exit();
-
+            inputMan.CheckKeys(Squirt);
+            //Cam.UpdateCamera(dog);
+           // Cam.AdjustZoom(inZoomAmount);
+            //Cam.MoveCamera(movePosition);
             // TODO: Add your update logic here
 
             base.Update(gameTime);
