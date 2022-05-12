@@ -13,7 +13,6 @@ namespace Cmeera_test
         private Texture2D tex;
         private Vector2 pos;
         private Vector2 size;
-        
 
 
         public Game1()
