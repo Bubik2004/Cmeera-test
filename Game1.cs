@@ -13,10 +13,11 @@ namespace Cmeera_test
         private Texture2D tex;
         private Vector2 pos;
         private Vector2 size;
-        private InputManager inputMan;
+        private InputManager inputMan = new InputManager();
 
-        public Camera Cam;
-        private Viewport dog;
+        private Camera Cam;
+
+
         private float inZoomAmount;
 
 
@@ -32,6 +33,8 @@ namespace Cmeera_test
         protected override void Initialize()
         {
             // TODO: Add your initialization logic here
+            inZoomAmount = 0.5f;
+            Cam = new Camera(GraphicsDevice.Viewport);
 
             base.Initialize();
         }
@@ -40,13 +43,16 @@ namespace Cmeera_test
         {
             _spriteBatch = new SpriteBatch(GraphicsDevice);
             tex = Content.Load<Texture2D>("squirtle");
-            Squirt = new Player(tex, new Vector2(200, 200), new Vector2(30, 50));
+            Squirt = new Player(tex, new Vector2(1, 1), new Vector2(30, 50));
 
             tex = Content.Load<Texture2D>("Big_tree");
             tree = new Tree(tex, new Vector2(100, 100), new Vector2(50, 70));
 
+
             
-            
+
+
+
             // TODO: use this.Content to load your game content here
         }
 
@@ -55,9 +61,11 @@ namespace Cmeera_test
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
                 Exit();
             inputMan.CheckKeys(Squirt);
-            //Cam.UpdateCamera(dog);
-           // Cam.AdjustZoom(inZoomAmount);
-            //Cam.MoveCamera(movePosition);
+
+
+            Cam.AdjustZoom(inZoomAmount);
+            Cam.UpdateCamera(GraphicsDevice.Viewport);
+            Cam.MoveCamera(Squirt.spritePosition);
             // TODO: Add your update logic here
 
             base.Update(gameTime);

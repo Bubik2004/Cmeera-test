@@ -15,29 +15,24 @@ namespace Cmeera_test
         {
             state = Keyboard.GetState();
 
-            playerSprite.goingLeft = false;
-            playerSprite.goingRight = false;
-            playerSprite.goingUp = false;
-            playerSprite.goingDown = false;
-
             if (state.IsKeyDown(Keys.A))
             {
-                playerSprite.spritePosition = new Vector2(playerSprite.spritePosition.X + 1, playerSprite.spritePosition.Y);
+                playerSprite.spritePosition = new Vector2(playerSprite.spritePosition.X - 10, playerSprite.spritePosition.Y);
             }
 
             if (state.IsKeyDown(Keys.D))
             {
-                playerSprite.spritePosition = new Vector2(playerSprite.spritePosition.X - 1, playerSprite.spritePosition.Y);
+                playerSprite.spritePosition = new Vector2(playerSprite.spritePosition.X + 10, playerSprite.spritePosition.Y);
             }
 
             if (state.IsKeyDown(Keys.W))
             {
-                playerSprite.spritePosition = new Vector2(playerSprite.spritePosition.X, playerSprite.spritePosition.Y - 1);
+                playerSprite.spritePosition = new Vector2(playerSprite.spritePosition.X, playerSprite.spritePosition.Y - 10);
             }
 
             if (state.IsKeyDown(Keys.S))
             {
-                playerSprite.spritePosition = new Vector2(playerSprite.spritePosition.X + 1, playerSprite.spritePosition.Y + 1);
+                playerSprite.spritePosition = new Vector2(playerSprite.spritePosition.X, playerSprite.spritePosition.Y + 10);
             }
         }
 

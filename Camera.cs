@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Diagnostics;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
@@ -55,10 +56,12 @@ namespace Cmeera_test
         {
             Vector2 newPosition = Position + movePosition;
             Position = newPosition;
+            Debug.Write(newPosition);
         }
 
         public void AdjustZoom(float zoomAmount)
         {
+            zoom = 5;
             Zoom += zoomAmount;
             if (Zoom < .35f)
             {
@@ -100,22 +103,22 @@ namespace Cmeera_test
             }
 
 
-            if (Keyboard.GetState().IsKeyDown(Keys.Up))
+            if (Keyboard.GetState().IsKeyDown(Keys.I))
             {
                 cameraMovement.Y = -moveSpeed;
             }
 
-            if (Keyboard.GetState().IsKeyDown(Keys.Down))
+            if (Keyboard.GetState().IsKeyDown(Keys.K))
             {
                 cameraMovement.Y = moveSpeed;
             }
 
-            if (Keyboard.GetState().IsKeyDown(Keys.Right))
+            if (Keyboard.GetState().IsKeyDown(Keys.L))
             {
                 cameraMovement.X = -moveSpeed;
             }
 
-            if (Keyboard.GetState().IsKeyDown(Keys.Left))
+            if (Keyboard.GetState().IsKeyDown(Keys.J))
             {
                 cameraMovement.X = moveSpeed;
             }
@@ -123,13 +126,13 @@ namespace Cmeera_test
             previousMouseWheelValue = currentMouseWheelValue;
             currentMouseWheelValue = Mouse.GetState().ScrollWheelValue;
 
-            if (currentMouseWheelValue > previousMouseWheelValue)
+            if (Keyboard.GetState().IsKeyDown(Keys.U))
             {
                 AdjustZoom(.05f);
                 Console.WriteLine(moveSpeed);
             }
 
-            if (currentMouseWheelValue < previousMouseWheelValue)
+            if (Keyboard.GetState().IsKeyDown(Keys.H))
             {
                 AdjustZoom(-.05f);
                 Console.WriteLine(moveSpeed);
