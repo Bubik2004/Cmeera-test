@@ -1,0 +1,67 @@
+Sub AssignColoursToAllFilesInFolderAndPrint()
+    Dim colourList As Variant
+    Dim lastRow As Long
+    Dim i As Long
+    Dim colourIndex As Long
+    Dim orderNumberColumn As Long
+    Dim labelColourColumn As Long
+    Dim dropNumberColumn As Long
+    Dim headerRow As Long
+    Dim folderPath As String
+    Dim fileName As String
+    Dim wb As Workbook
+    Dim ws As Worksheet
+    
+    ' Define your colour list
+    colourList = Array("Purple", "Green", "Pink", "Yellow", "Black", "Orange", "Light Blue", "Grey", "Dark Blue", "Red")
+    
+    ' Set the header row (assuming "Label Colour" is in row 1)
+    headerRow = 5
+    
+    ' Identify columns (adjust these based on your actual columns)
+    orderNumberColumn = 4 ' Column A for Order Number
+    labelColourColumn = 14 ' Column B for Label Colour
+    dropNumberColumn = 2 ' Column C for Drop Number
+    
+    ' Get the folder path of the current workbook
+    folderPath = ThisWorkbook.Path & "\"
+    
+    ' Loop through all Excel files in the folder
+    fileName = Dir(folderPath & "*.xls*") ' This will pick up all Excel files (.xls, .xlsx, etc.)
+    
+    Do While fileName <> ""
+        ' Open the workbook
+        Set wb = Workbooks.Open(folderPath & fileName)
+        
+        ' Loop through all worksheets in the workbook
+        For Each ws In wb.Worksheets
+            ' Find the last row in the Drop Number column
+            lastRow = ws.Cells(ws.Rows.Count, dropNumberColumn).End(xlUp).Row
+            
+            ' Start from the row below the "Label Colour" header (row 2)
+            colourIndex = 0 ' Start at the first colour in the list
+            For i = headerRow + 1 To lastRow
+                ' Check if "BREAK" is in the Order Number column and skip the row
+                If ws.Cells(i, orderNumberColumn).Value = "BREAK" Then
+                    GoTo SkipRow ' Skip this row and continue to the next iteration
+                End If
+                
+                ' Write the colour name to the Label Colour column
+                ws.Cells(i, labelColourColumn).Value = colourList(colourIndex)
+                
+                ' Cycle through the colour list
+                colourIndex = (colourIndex + 1) Mod 10
+                
+SkipRow:
+            Next i
+        Next ws
+        
+        ' Print the workbook (this will print the entire workbook)
+        wb.PrintOut
+        
+        ' Get the next file in the folder
+        fileName = Dir
+    Loop
+    
+    MsgBox "Operation completed and all files have been printed!"
+End Sub
